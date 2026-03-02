@@ -3,7 +3,7 @@ import { OG_IMAGE_QUERY } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`;
