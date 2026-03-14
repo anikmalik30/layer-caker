@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { CtaBandBlock } from "@/sanity/page-builder-types";
+import { PresentationLink } from "@/components/presentation-link";
 
 function isExternalHref(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
@@ -45,23 +45,23 @@ export function CtaBand({
           </div>
 
           <div data-animate-item className="flex flex-col gap-3 sm:flex-row">
-            <Link
+            <PresentationLink
               href={primaryHref}
               className="rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800"
               target={isExternalHref(primaryHref) ? "_blank" : undefined}
               rel={isExternalHref(primaryHref) ? "noreferrer" : undefined}
             >
               {primaryLabel}
-            </Link>
+            </PresentationLink>
             {secondaryHref && secondaryLabel ? (
-              <Link
+              <PresentationLink
                 href={secondaryHref}
                 className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-slate-900 transition hover:border-slate-400 hover:bg-slate-50"
                 target={isExternalHref(secondaryHref) ? "_blank" : undefined}
                 rel={isExternalHref(secondaryHref) ? "noreferrer" : undefined}
               >
                 {secondaryLabel}
-              </Link>
+              </PresentationLink>
             ) : null}
           </div>
         </div>

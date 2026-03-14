@@ -269,6 +269,7 @@ export function AnimationLayer({
   contentKey,
 }: AnimationLayerProps) {
   const isPresentationTool = useIsPresentationTool();
+  const shouldPauseForPresentation = isPresentationTool !== false;
 
   useEffect(() => {
     const scope = scopeRef.current;
@@ -276,7 +277,7 @@ export function AnimationLayer({
       return;
     }
 
-    if (isPresentationTool) {
+    if (shouldPauseForPresentation) {
       return;
     }
 
@@ -301,7 +302,7 @@ export function AnimationLayer({
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [contentKey, isPresentationTool, scopeRef]);
+  }, [contentKey, scopeRef, shouldPauseForPresentation]);
 
   return null;
 }

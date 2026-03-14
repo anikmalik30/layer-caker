@@ -1,8 +1,9 @@
-import Link from "next/link";
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { VideoHeroBlock } from "@/sanity/page-builder-types";
+import { PresentationLink } from "@/components/presentation-link";
+import { useIsPresentationTool } from "next-sanity/hooks";
 
 function isExternalHref(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
@@ -19,6 +20,9 @@ export function VideoHero({
   title,
   videoUrl,
 }: VideoHeroBlock) {
+  const isPresentationTool = useIsPresentationTool();
+  const shouldUsePresentationSafeMode = isPresentationTool !== false;
+
   return (
     <section className="relative isolate overflow-hidden">
       <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.7),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.1),rgba(248,250,252,0.92))]" />
@@ -49,24 +53,24 @@ export function VideoHero({
           {(primaryHref && primaryLabel) || (secondaryHref && secondaryLabel) ? (
             <div data-animate-item className="flex flex-col gap-3 sm:flex-row">
               {primaryHref && primaryLabel ? (
-                <Link
+                <PresentationLink
                   href={primaryHref}
                   className="rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800"
                   target={isExternalHref(primaryHref) ? "_blank" : undefined}
                   rel={isExternalHref(primaryHref) ? "noreferrer" : undefined}
                 >
                   {primaryLabel}
-                </Link>
+                </PresentationLink>
               ) : null}
               {secondaryHref && secondaryLabel ? (
-                <Link
+                <PresentationLink
                   href={secondaryHref}
                   className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-slate-900 transition hover:border-slate-400 hover:bg-slate-50"
                   target={isExternalHref(secondaryHref) ? "_blank" : undefined}
                   rel={isExternalHref(secondaryHref) ? "noreferrer" : undefined}
                 >
                   {secondaryLabel}
-                </Link>
+                </PresentationLink>
               ) : null}
             </div>
           ) : null}
@@ -76,24 +80,36 @@ export function VideoHero({
           data-animate-item
           className="relative z-20 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_26px_70px_rgba(148,163,184,0.2)]"
         >
-          <video
-            className="h-full min-h-[26rem] w-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster={poster?.asset?._ref ? urlFor(poster).width(1600).height(1200).url() : undefined}
-          >
-            <source src={videoUrl} />
-          </video>
+          {!shouldUsePresentationSafeMode ? (
+            <video
+              className="h-full min-h-[26rem] w-full object-cover"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={
+                poster?.asset?._ref
+                  ? urlFor(poster).width(1600).height(1200).url()
+                  : undefined
+              }
+            >
+              <source src={videoUrl} />
+            </video>
+          ) : null}
           {poster?.asset?._ref ? (
             <Image
-              className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover opacity-0"
+              className={`pointer-events-none absolute inset-0 h-full w-full object-cover ${
+                shouldUsePresentationSafeMode ? "" : "-z-10 opacity-0"
+              }`}
               src={urlFor(poster).width(1600).height(1200).url()}
               width={1600}
               height={1200}
               alt={title}
             />
+          ) : shouldUsePresentationSafeMode ? (
+            <div className="flex min-h-[26rem] items-center justify-center bg-slate-100 text-sm uppercase tracking-[0.28em] text-slate-500">
+              Add a poster image for Presentation mode
+            </div>
           ) : null}
         </div>
       </div>
