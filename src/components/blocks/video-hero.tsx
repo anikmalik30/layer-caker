@@ -25,20 +25,29 @@ export function VideoHero({
       <div className="relative mx-auto grid min-h-[82svh] max-w-7xl gap-10 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:px-10">
         <div className="relative z-20 flex flex-col justify-end gap-8">
           {eyebrow ? (
-            <p className="inline-flex w-fit rounded-full border border-white/70 bg-white/70 px-4 py-2 text-xs font-medium uppercase tracking-[0.34em] text-slate-700 backdrop-blur-sm">
+            <p
+              data-animate-item
+              className="inline-flex w-fit rounded-full border border-white/70 bg-white/70 px-4 py-2 text-xs font-medium uppercase tracking-[0.34em] text-slate-700 backdrop-blur-sm"
+            >
               {eyebrow}
             </p>
           ) : null}
-          <h1 className="max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl lg:text-7xl">
+          <h1
+            data-animate-item
+            className="max-w-4xl text-4xl font-semibold tracking-tight text-slate-950 md:text-6xl lg:text-7xl"
+          >
             {title}
           </h1>
           {text ? (
-            <div className="prose prose-lg max-w-2xl prose-slate prose-p:text-slate-700 prose-strong:text-slate-950">
+            <div
+              data-animate-item
+              className="prose prose-lg max-w-2xl prose-slate prose-p:text-slate-700 prose-strong:text-slate-950"
+            >
               <PortableText value={text} />
             </div>
           ) : null}
           {(primaryHref && primaryLabel) || (secondaryHref && secondaryLabel) ? (
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div data-animate-item className="flex flex-col gap-3 sm:flex-row">
               {primaryHref && primaryLabel ? (
                 <Link
                   href={primaryHref}
@@ -63,7 +72,10 @@ export function VideoHero({
           ) : null}
         </div>
 
-        <div className="relative z-20 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_26px_70px_rgba(148,163,184,0.2)]">
+        <div
+          data-animate-item
+          className="relative z-20 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-[0_26px_70px_rgba(148,163,184,0.2)]"
+        >
           <video
             className="h-full min-h-[26rem] w-full object-cover"
             autoPlay

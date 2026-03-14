@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { Hero } from "@/components/blocks/hero";
 import { VideoHero } from "@/components/blocks/video-hero";
 import { Features } from "@/components/blocks/features";
@@ -9,6 +10,7 @@ import { ModelShowcase } from "@/components/blocks/model-showcase";
 import { SpecGrid } from "@/components/blocks/spec-grid";
 import { GalleryRail } from "@/components/blocks/gallery-rail";
 import { CtaBand } from "@/components/blocks/cta-band";
+import { AnimationLayer } from "@/components/animation-layer";
 import {
   AnimationConfig,
   PageBuilderContent,
@@ -55,13 +57,17 @@ export function PageBuilder({
   documentType,
 }: PageBuilderProps) {
   const blocks = content;
+  const scopeRef = useRef<HTMLElement | null>(null);
 
   if (!Array.isArray(blocks)) {
     return null;
   }
 
+  const contentKey = blocks.map((block) => block._key).join("|");
+
   return (
     <main
+      ref={scopeRef}
       data-sanity={createDataAttribute({
         ...createDataAttributeConfig,
         id: documentId,
@@ -69,6 +75,7 @@ export function PageBuilder({
         path: "content",
       }).toString()}
     >
+      <AnimationLayer scopeRef={scopeRef} contentKey={contentKey} />
       {blocks.map((block) => {
         const DragHandle = ({ children }: { children: React.ReactNode }) => (
           <div

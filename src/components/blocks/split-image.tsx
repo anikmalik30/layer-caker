@@ -11,6 +11,7 @@ export function SplitImage({ title, image, orientation }: SplitImageBlock) {
     >
       {image?.asset?._ref ? (
         <Image
+          data-animate-item
           className="h-auto w-full rounded-[1.75rem] object-cover lg:w-[62%]"
           src={urlFor(image).width(1200).height(900).url()}
           width={1200}
@@ -20,7 +21,10 @@ export function SplitImage({ title, image, orientation }: SplitImageBlock) {
       ) : null}
       <div className="flex flex-1 items-center">
         {title ? (
-          <h2 className="max-w-xl text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
+          <h2
+            data-animate-item
+            className="max-w-xl text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl lg:text-6xl"
+          >
             {title}
           </h2>
         ) : null}

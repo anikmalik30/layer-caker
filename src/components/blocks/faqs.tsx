@@ -24,7 +24,10 @@ export function FAQs({ _key, title, faqs }: FaqsBlock) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqData) }}
       />
       {title ? (
-        <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+        <h2
+          data-animate-item
+          className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl"
+        >
           {title}
         </h2>
       ) : null}
@@ -33,6 +36,7 @@ export function FAQs({ _key, title, faqs }: FaqsBlock) {
           {faqs.map((faq) => (
             <details
               key={faq._id}
+              data-animate-item
               className="group border-t border-slate-200 px-5 transition-colors duration-150 [&[open]]:bg-slate-50"
               name={_key}
             >

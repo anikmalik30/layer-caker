@@ -21,21 +21,30 @@ export function CtaBand({
         <div className="relative flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl space-y-4">
             {eyebrow ? (
-              <p className="text-xs font-medium uppercase tracking-[0.38em] text-sky-700">
+              <p
+                data-animate-item
+                className="text-xs font-medium uppercase tracking-[0.38em] text-sky-700"
+              >
                 {eyebrow}
               </p>
             ) : null}
-            <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
+            <h2
+              data-animate-item
+              className="text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl"
+            >
               {title}
             </h2>
             {text ? (
-              <p className="max-w-xl text-base leading-7 text-slate-700">
+              <p
+                data-animate-item
+                className="max-w-xl text-base leading-7 text-slate-700"
+              >
                 {text}
               </p>
             ) : null}
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+          <div data-animate-item className="flex flex-col gap-3 sm:flex-row">
             <Link
               href={primaryHref}
               className="rounded-full bg-slate-950 px-6 py-3 text-sm font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-slate-800"
