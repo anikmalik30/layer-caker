@@ -3,6 +3,7 @@
 import { RefObject, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsPresentationTool } from "next-sanity/hooks";
 
 type AnimationLayerProps = {
   scopeRef: RefObject<HTMLElement | null>;
@@ -267,9 +268,15 @@ export function AnimationLayer({
   scopeRef,
   contentKey,
 }: AnimationLayerProps) {
+  const isPresentationTool = useIsPresentationTool();
+
   useEffect(() => {
     const scope = scopeRef.current;
     if (!scope) {
+      return;
+    }
+
+    if (isPresentationTool) {
       return;
     }
 
@@ -294,7 +301,7 @@ export function AnimationLayer({
       ctx.revert();
       ScrollTrigger.refresh();
     };
-  }, [scopeRef, contentKey]);
+  }, [contentKey, isPresentationTool, scopeRef]);
 
   return null;
 }
