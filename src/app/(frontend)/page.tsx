@@ -1,7 +1,7 @@
 import { PageBuilder } from "@/components/page-builder";
 import { sanityFetch } from "@/sanity/lib/live";
 import { HOME_PAGE_QUERY } from "@/sanity/lib/queries";
-import { PAGE_QUERYResult } from "@/sanity/types";
+import { PageBuilderContent } from "@/sanity/page-builder-types";
 
 export default async function Page() {
   const { data: page } = await sanityFetch({
@@ -16,9 +16,7 @@ export default async function Page() {
     <PageBuilder
       documentId={page.homePage._id}
       documentType={page.homePage._type}
-      content={
-        page.homePage.content as NonNullable<PAGE_QUERYResult>["content"]
-      }
+      content={page.homePage.content as PageBuilderContent}
     />
   );
 }

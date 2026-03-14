@@ -23,6 +23,10 @@ export const splitImageType = defineType({
             name: "image",
             type: "image",
         }),
+        defineField({
+            name: "animation",
+            type: "animationSettings",
+        }),
     ],
     icon: BlockContentIcon,
     preview: {

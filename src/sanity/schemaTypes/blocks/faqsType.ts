@@ -16,6 +16,10 @@ export const faqsType = defineType({
             type: "array",
             of: [{ type: "reference", to: [{ type: "faq" }] }],
         }),
+        defineField({
+            name: "animation",
+            type: "animationSettings",
+        }),
     ],
     icon: HelpCircleIcon,
     preview: {

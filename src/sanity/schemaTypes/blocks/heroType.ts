@@ -17,6 +17,10 @@ export const heroType = defineType({
             name: "image",
             type: "image",
         }),
+        defineField({
+            name: "animation",
+            type: "animationSettings",
+        }),
     ],
     icon: TextIcon,
     preview: {

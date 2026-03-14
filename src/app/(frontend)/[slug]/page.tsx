@@ -3,6 +3,7 @@ import { PageBuilder } from "@/components/page-builder";
 import { sanityFetch } from "@/sanity/lib/live";
 import { PAGE_QUERY } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
+import { PageBuilderContent } from "@/sanity/page-builder-types";
 
 type RouteProps = {
   params: Promise<{ slug: string }>;
@@ -53,7 +54,7 @@ export default async function Page({ params }: RouteProps) {
     <PageBuilder
       documentId={page._id}
       documentType={page._type}
-      content={page.content}
+      content={page.content as PageBuilderContent}
     />
   ) : null;
 }

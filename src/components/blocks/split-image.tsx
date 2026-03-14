@@ -1,31 +1,26 @@
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import { PAGE_QUERYResult } from "@/sanity/types";
+import { SplitImageBlock } from "@/sanity/page-builder-types";
 import { stegaClean } from "next-sanity";
 
-type SplitImageProps = Extract<
-  NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
-  { _type: "splitImage" }
->;
-
-export function SplitImage({ title, image, orientation }: SplitImageProps) {
+export function SplitImage({ title, image, orientation }: SplitImageBlock) {
   return (
     <section
-      className="container mx-auto flex gap-8 py-16 data-[orientation='imageRight']:flex-row-reverse"
+      className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-6 py-20 data-[orientation='imageRight']:lg:flex-row-reverse lg:flex-row lg:px-10"
       data-orientation={stegaClean(orientation) || "imageLeft"}
     >
-      {image ? (
+      {image?.asset?._ref ? (
         <Image
-          className="rounded-xl w-2/3 h-auto"
-          src={urlFor(image).width(800).height(600).url()}
-          width={800}
-          height={600}
-          alt=""
+          className="h-auto w-full rounded-[1.75rem] object-cover lg:w-[62%]"
+          src={urlFor(image).width(1200).height(900).url()}
+          width={1200}
+          height={900}
+          alt={title ?? ""}
         />
       ) : null}
-      <div className="w-1/3 flex items-center">
+      <div className="flex flex-1 items-center">
         {title ? (
-          <h2 className="text-3xl mx-auto md:text-5xl lg:text-8xl font-light text-pink-500 text-pretty max-w-3xl">
+          <h2 className="max-w-xl text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl lg:text-6xl">
             {title}
           </h2>
         ) : null}

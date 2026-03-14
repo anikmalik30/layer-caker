@@ -1,18 +1,26 @@
 "use client";
 
 import { Hero } from "@/components/blocks/hero";
+import { VideoHero } from "@/components/blocks/video-hero";
 import { Features } from "@/components/blocks/features";
 import { SplitImage } from "@/components/blocks/split-image";
 import { FAQs } from "@/components/blocks/faqs";
-import { PAGE_QUERYResult } from "@/sanity/types";
+import { ModelShowcase } from "@/components/blocks/model-showcase";
+import { SpecGrid } from "@/components/blocks/spec-grid";
+import { GalleryRail } from "@/components/blocks/gallery-rail";
+import { CtaBand } from "@/components/blocks/cta-band";
+import {
+  AnimationConfig,
+  PageBuilderContent,
+  PageDocumentBase,
+} from "@/sanity/page-builder-types";
 import { client } from "@/sanity/lib/client";
 import { createDataAttribute } from "next-sanity";
-import { useOptimistic } from "next-sanity/hooks";
 
 type PageBuilderProps = {
-  content: NonNullable<PAGE_QUERYResult>["content"];
-  documentId: string;
-  documentType: string;
+  content: PageBuilderContent;
+  documentId: PageDocumentBase["_id"];
+  documentType: PageDocumentBase["_type"];
 };
 
 const { projectId, dataset, stega } = client.config();
@@ -22,22 +30,31 @@ export const createDataAttributeConfig = {
   baseUrl: typeof stega.studioUrl === "string" ? stega.studioUrl : "",
 };
 
+function getAnimationDataAttributes(animation?: AnimationConfig) {
+  return {
+    "data-animation-preset": animation?.preset ?? "",
+    "data-animation-trigger": animation?.trigger ?? "",
+    "data-animation-duration":
+      typeof animation?.duration === "number" ? String(animation.duration) : "",
+    "data-animation-delay":
+      typeof animation?.delay === "number" ? String(animation.delay) : "",
+    "data-animation-stagger":
+      typeof animation?.stagger === "number" ? String(animation.stagger) : "",
+    "data-animation-once":
+      typeof animation?.once === "boolean" ? String(animation.once) : "",
+    "data-animation-disable-mobile":
+      typeof animation?.disableOnMobile === "boolean"
+        ? String(animation.disableOnMobile)
+        : "",
+  };
+}
+
 export function PageBuilder({
   content,
   documentId,
   documentType,
 }: PageBuilderProps) {
-  const blocks = useOptimistic<
-    NonNullable<PAGE_QUERYResult>["content"] | undefined,
-    NonNullable<PAGE_QUERYResult>
-  >(content, (state, action) => {
-    if (action.id === documentId) {
-      return action?.document?.content?.map(
-        (block) => state?.find((s) => s._key === block?._key) || block
-      );
-    }
-    return state;
-  });
+  const blocks = content;
 
   if (!Array.isArray(blocks)) {
     return null;
@@ -61,6 +78,9 @@ export function PageBuilder({
               type: documentType,
               path: `content[_key=="${block._key}"]`,
             }).toString()}
+            {...getAnimationDataAttributes(
+              "animation" in block ? block.animation : undefined
+            )}
           >
             {children}
           </div>
@@ -73,16 +93,46 @@ export function PageBuilder({
                 <Hero {...block} />
               </DragHandle>
             );
+          case "videoHero":
+            return (
+              <DragHandle key={block._key}>
+                <VideoHero {...block} />
+              </DragHandle>
+            );
           case "features":
             return (
               <DragHandle key={block._key}>
                 <Features {...block} />
               </DragHandle>
             );
+          case "modelShowcase":
+            return (
+              <DragHandle key={block._key}>
+                <ModelShowcase {...block} />
+              </DragHandle>
+            );
+          case "specGrid":
+            return (
+              <DragHandle key={block._key}>
+                <SpecGrid {...block} />
+              </DragHandle>
+            );
           case "splitImage":
             return (
               <DragHandle key={block._key}>
                 <SplitImage {...block} />
+              </DragHandle>
+            );
+          case "galleryRail":
+            return (
+              <DragHandle key={block._key}>
+                <GalleryRail {...block} />
+              </DragHandle>
+            );
+          case "ctaBand":
+            return (
+              <DragHandle key={block._key}>
+                <CtaBand {...block} />
               </DragHandle>
             );
           case "faqs":
@@ -92,8 +142,7 @@ export function PageBuilder({
               </DragHandle>
             );
           default:
-            // This is a fallback for when we don't have a block type
-            return <div key={(block as any)._key}>Block not found: {(block as any)._type}</div>;
+            return null;
         }
       })}
     </main>

@@ -1,27 +1,27 @@
-import { PAGE_QUERYResult } from "@/sanity/types";
+import { FeaturesBlock } from "@/sanity/page-builder-types";
 
-type FeaturesProps = Extract<
-  NonNullable<NonNullable<PAGE_QUERYResult>["content"]>[number],
-  { _type: "features" }
->;
-
-export function Features({ features, title }: FeaturesProps) {
+export function Features({ features, title }: FeaturesBlock) {
   return (
-    <section className="container mx-auto flex flex-col gap-8 py-16">
+    <section className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-20 lg:px-10">
       {title ? (
-        <h2 className="text-xl mx-auto md:text-2xl lg:text-5xl font-semibold text-slate-800 text-pretty max-w-3xl">
+        <h2 className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
           {title}
         </h2>
       ) : null}
 
       {Array.isArray(features) ? (
-        <div className="grid grid-cols-3 gap-8">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           {features.map((feature) => (
-            <div key={feature._key} className="flex flex-col gap-4">
-              <h3 className="text-xl font-semibold text-slate-800">
+            <div
+              key={feature._key}
+              className="rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-[0_18px_50px_rgba(148,163,184,0.16)]"
+            >
+              <h3 className="text-xl font-semibold text-slate-950">
                 {feature.title}
               </h3>
-              <p className="text-lg text-slate-600">{feature.text}</p>
+              <p className="mt-4 text-base leading-7 text-slate-600">
+                {feature.text}
+              </p>
             </div>
           ))}
         </div>

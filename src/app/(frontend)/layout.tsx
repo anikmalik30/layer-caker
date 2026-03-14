@@ -10,7 +10,7 @@ export default async function FrontendLayout({
   children: React.ReactNode
 }>) {
   return (
-    <section className="bg-white min-h-screen">
+    <section className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(14,165,233,0.12),transparent_24%),linear-gradient(180deg,#f8fafc,#ffffff_38%,#f8fafc)]">
       <Header />
       {children}
       <SanityLive />

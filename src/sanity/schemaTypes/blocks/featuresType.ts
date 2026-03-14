@@ -29,6 +29,10 @@ export const featuresType = defineType({
                 }),
             ],
         }),
+        defineField({
+            name: "animation",
+            type: "animationSettings",
+        }),
     ],
     icon: StarIcon,
     preview: {

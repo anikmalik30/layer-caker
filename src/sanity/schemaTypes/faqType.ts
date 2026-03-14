@@ -1,4 +1,4 @@
-import { DocumentIcon, VersionsIcon } from "@sanity/icons";
+import { VersionsIcon } from "@sanity/icons";
 import { defineField, defineType } from "sanity";
 
 export const faqType = defineType({

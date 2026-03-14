@@ -1,21 +1,21 @@
-'use client'
+"use client";
 
-import { useIsPresentationTool } from 'next-sanity/hooks'
+import Link from "next/link";
+import { useIsPresentationTool } from "next-sanity/hooks";
 
 export function DisableDraftMode() {
-  const isPresentationTool = useIsPresentationTool()
+  const isPresentationTool = useIsPresentationTool();
 
-  // Only show the disable draft mode button when outside of Presentation Tool
-  if (isPresentationTool === null && isPresentationTool === true) {
-    return null
+  if (isPresentationTool) {
+    return null;
   }
 
   return (
-    <a
+    <Link
       href="/api/draft-mode/disable"
-      className="fixed bottom-4 right-4 bg-gray-50 px-4 py-2"
+      className="fixed bottom-4 right-4 rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-sm font-medium text-white backdrop-blur-xl"
     >
       Disable Draft Mode
-    </a>
-  )
+    </Link>
+  );
 }

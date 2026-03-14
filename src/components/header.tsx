@@ -1,19 +1,19 @@
-import Link from 'next/link'
+import Link from "next/link";
 
 export function Header() {
   return (
-    <div className="from-pink-50 to-white bg-gradient-to-b p-6">
-      <header className="bg-white/80 shadow-md flex items-center justify-between p-6 rounded-lg container mx-auto shadow-pink-50">
+    <div className="sticky top-0 z-40 p-4 md:p-6">
+      <header className="mx-auto flex max-w-7xl items-center justify-between rounded-full border border-slate-200/80 bg-white/85 px-5 py-4 shadow-[0_18px_60px_rgba(148,163,184,0.18)] backdrop-blur-xl">
         <Link
-          className="text-pink-700 md:text-xl font-bold tracking-tight"
+          className="text-sm font-semibold uppercase tracking-[0.35em] text-slate-900 md:text-base"
           href="/"
         >
-          Layer Caker
+          Velocity Atelier
         </Link>
-        <ul className="flex items-center gap-4 font-semibold text-slate-700">
+        <ul className="flex items-center gap-5 text-sm font-medium text-slate-600">
           <li>
             <Link
-              className="hover:text-pink-500 transition-colors"
+              className="transition-colors hover:text-slate-950"
               href="/posts"
             >
               Posts
@@ -21,7 +21,7 @@ export function Header() {
           </li>
           <li>
             <Link
-              className="hover:text-pink-500 transition-colors"
+              className="transition-colors hover:text-slate-950"
               href="/studio"
             >
               Sanity Studio
@@ -30,5 +30,5 @@ export function Header() {
         </ul>
       </header>
     </div>
-  )
+  );
 }
